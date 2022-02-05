@@ -1,7 +1,6 @@
 package com.diego.conoceeldestino.dto
 
-data class RoleDto(
-    var id:                 Long,
-    var role_name:          String,
-    var role_description:   String
-)
+import java.io.Serializable
+
+data class RoleDto(val id: Long? = null, val roleName: String? = null, val roleDescription: String? = null) :
+    Serializable

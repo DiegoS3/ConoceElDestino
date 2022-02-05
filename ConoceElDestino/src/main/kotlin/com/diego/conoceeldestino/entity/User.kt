@@ -1,36 +1,37 @@
 package com.diego.conoceeldestino.entity
 
 import java.time.Instant
-import java.time.ZoneOffset
-import java.time.format.DateTimeFormatter
 import javax.persistence.*
 
 @Entity
-@Table(name = "user")
+@Table(
+    name = "user", indexes = [
+        Index(name = "username", columnList = "username", unique = true)
+    ]
+)
 open class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     open var id: Long? = null
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "name")
     open var name: String? = null
 
-    @Column(name = "last_name", nullable = false)
-    open var last_name: String? = null
+    @Column(name = "last_name")
+    open var lastName: String? = null
 
-    @Column(name = "user_name", nullable = false)
-    open var user_name: String? = null
+    @Column(name = "username", nullable = false)
+    open var username: String? = null
 
-    @Column(name = "created_at")
-    open var created_at: String = DateTimeFormatter
-        .ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS")
-        .withZone(ZoneOffset.UTC)
-        .format(Instant.now())
+    @Column(name = "password", nullable = false)
+    open var password: String? = null
+
+    @Column(name = "created_at", nullable = false)
+    open var createdAt: Instant? = null
 
     @Column(name = "email", nullable = false)
     open var email: String? = null
 
-    @Column(name = "phone", nullable = false)
-    open var phone: String? = null
+    @Column(name = "phone")
+    open var phone: Long? = null
 }

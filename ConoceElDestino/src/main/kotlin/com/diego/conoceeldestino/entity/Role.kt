@@ -1,12 +1,13 @@
 package com.diego.conoceeldestino.entity
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
-@Table(name = "role")
+@Table(
+    name = "role", indexes = [
+        Index(name = "role_name", columnList = "role_name", unique = true)
+    ]
+)
 open class Role {
     @Id
     @Column(name = "id", nullable = false)

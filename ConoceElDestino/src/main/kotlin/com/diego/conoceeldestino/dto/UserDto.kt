@@ -1,11 +1,16 @@
 package com.diego.conoceeldestino.dto
 
+import java.io.Serializable
+import java.time.Instant
+import javax.persistence.*
+
 data class UserDto(
-    var id:             Long,
-    var name:           String,
-    var last_name:      String,
-    var user_name:      String,
-    var created_at:     String,
-    var email:          String,
-    var phone:          String
-)
+    val id: Long? = null,
+    val name: String? = null,
+    val lastName: String? = null,
+    val username: String? = null,
+    val password: String? = null,
+    val createdAt: Instant? = null,
+    val email: String? = null,
+    val phone: Long? = null
+) : Serializable
