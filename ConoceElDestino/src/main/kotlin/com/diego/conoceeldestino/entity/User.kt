@@ -1,7 +1,11 @@
 package com.diego.conoceeldestino.entity
 
+import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.Type
 import java.time.Instant
+import java.util.*
 import javax.persistence.*
+
 
 @Entity
 @Table(
@@ -11,8 +15,13 @@ import javax.persistence.*
 )
 open class User {
     @Id
-    @Column(name = "id", nullable = false)
-    open var id: Long? = null
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+        name = "UUID",
+        strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(name = "id", insertable = false, updatable = false, nullable = false)
+    open var id: UUID? = null
 
     @Column(name = "name")
     open var name: String? = null
@@ -26,7 +35,7 @@ open class User {
     @Column(name = "password", nullable = false)
     open var password: String? = null
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at")
     open var createdAt: Instant? = null
 
     @Column(name = "email", nullable = false)
