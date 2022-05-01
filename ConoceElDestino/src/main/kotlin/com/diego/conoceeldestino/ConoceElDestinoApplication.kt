@@ -13,8 +13,9 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc
 
 
 @SpringBootApplication
-class ConoceElDestinoApplication : SpringBootServletInitializer()
+class ConoceElDestinoApplication
 //./mvnw spring-boot:run
+
 fun main(args: Array<String>) {
 	runApplication<ConoceElDestinoApplication>(*args)
 }
