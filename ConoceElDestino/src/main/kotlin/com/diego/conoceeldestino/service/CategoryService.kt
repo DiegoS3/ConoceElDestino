@@ -1,16 +1,13 @@
 package com.diego.conoceeldestino.service
 
 import com.diego.conoceeldestino.entity.Category
-import com.diego.conoceeldestino.repository.CategoryRepository
-import org.springframework.beans.factory.annotation.Autowired
+import java.util.*
 
-class CategoryService {
+interface CategoryService {
 
-    @Autowired
-    private lateinit var categoryRepository: CategoryRepository
-
-    fun findAllCategories(): List<Category> {
-        return categoryRepository.findCategories()
-    }
-
+    fun findAllCategories(): MutableIterable<Category>
+    fun updateCategory(category: Category): Category?
+    fun createCategory(category: Category): Category?
+    fun findByName(name: String): Category?
+    fun deleteCategory(name: String): Boolean
 }

@@ -4,11 +4,7 @@ import org.hibernate.Hibernate
 import javax.persistence.*
 
 @Entity
-@Table(
-    name = "category", indexes = [
-        Index(name = "name_UNIQUE", columnList = "name", unique = true)
-    ]
-)
+@Table(name = "category")
 data class Category (
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,16 +12,16 @@ data class Category (
     val id: Int? = null,
 
     @Column(name = "name", nullable = false)
-    val name: String? = null,
+    var name: String? = null,
 
     @Column(name = "short_description", nullable = false)
-    val shortDescription: String? = null,
+    var shortDescription: String? = null,
 
     @Column(name = "long_description", nullable = false, length = 2000)
-    val longDescription: String? = null,
+    var longDescription: String? = null,
 
     @Column(name = "image", nullable = false)
-    val image: ByteArray? = null,
+    var image: ByteArray? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -36,10 +32,5 @@ data class Category (
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
-
-    @Override
-    override fun toString(): String {
-        return this::class.simpleName + "(id = $id , name = $name , shortDescription = $shortDescription , longDescription = $longDescription , image = $image )"
-    }
 
 }
