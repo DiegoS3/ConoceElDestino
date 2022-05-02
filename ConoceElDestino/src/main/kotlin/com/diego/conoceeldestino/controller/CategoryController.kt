@@ -21,6 +21,14 @@ class CategoryController {
         return ResponseEntity.ok(listCategory)
     }
 
+    @GetMapping
+    private fun getCategoryByName(
+        @RequestParam(name = "name") name: String
+    ): ResponseEntity<Any> {
+        val category = categoryService.findByName(name)
+        return ResponseEntity.ok(category)
+    }
+
     @PutMapping
     private fun putCategory(
         @RequestBody category: Category
