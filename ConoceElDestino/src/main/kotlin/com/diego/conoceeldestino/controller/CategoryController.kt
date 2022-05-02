@@ -4,24 +4,26 @@ import com.diego.conoceeldestino.entity.Category
 import com.diego.conoceeldestino.error.ConoceElDestinoException
 import com.diego.conoceeldestino.service.impl.CategoryServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 
-@Controller
+@RestController
 @RequestMapping("/rest/api/category")
-class CategoryController {
+class CategoryController : BaseController{
 
     @Autowired
     private lateinit var categoryService: CategoryServiceImpl
 
-    @GetMapping("/search")
-    private fun getAllCategories(): ResponseEntity<Any> {
-        val listCategory = categoryService.findAllCategories()
-        return ResponseEntity.ok(listCategory)
+    @PostMapping("/search")
+    @Throws(ConoceElDestinoException::class)
+    @ResponseStatus(HttpStatus.CREATED)
+    fun getAllCategories(): MutableIterable<Category> {
+        return categoryService.findAllCategories()
     }
 
     @GetMapping
+    @Throws(ConoceElDestinoException::class)
     private fun getCategoryByName(
         @RequestParam(name = "name") name: String
     ): ResponseEntity<Any> {
@@ -30,6 +32,7 @@ class CategoryController {
     }
 
     @PutMapping
+    @Throws(ConoceElDestinoException::class)
     private fun putCategory(
         @RequestBody category: Category
     ): ResponseEntity<Any> {
@@ -38,6 +41,7 @@ class CategoryController {
     }
 
     @PostMapping
+    @Throws(ConoceElDestinoException::class)
     private fun postCategory(
         @RequestBody category: Category
     ): ResponseEntity<Any> {

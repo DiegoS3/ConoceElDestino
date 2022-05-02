@@ -8,6 +8,6 @@ interface CategoryService {
     fun findAllCategories(): MutableIterable<Category>
     fun updateCategory(category: Category): Category?
     fun createCategory(category: Category): Category?
-    fun findByName(name: String): Category?
+    fun findByName(name: String): Optional<Category>
     fun deleteCategory(name: String): Boolean
 }
