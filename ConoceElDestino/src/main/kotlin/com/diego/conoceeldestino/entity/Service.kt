@@ -17,7 +17,7 @@ open class Service {
     @Column(name = "short_description", nullable = false)
     open var shortDescription: String? = null
 
-    @Column(name = "long_description", nullable = false, length = 2000)
+    @Column(name = "long_description", nullable = false, length = 5000)
     open var longDescription: String? = null
 
     @Column(name = "included", nullable = false, length = 2000)
@@ -30,7 +30,7 @@ open class Service {
     open var price: BigDecimal? = null
 
     @Column(name = "duration", nullable = false)
-    open var duration: Int? = null
+    open var duration: Double? = null
 
     @Column(name = "departure", nullable = false)
     open var departure: String? = null
@@ -38,8 +38,8 @@ open class Service {
     @Column(name = "arrival", nullable = false)
     open var arrival: String? = null
 
-    @Column(name = "distance", length = 45)
-    open var distance: String? = null
+    @Column(name = "distance")
+    open var distance: Int? = null
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category")
