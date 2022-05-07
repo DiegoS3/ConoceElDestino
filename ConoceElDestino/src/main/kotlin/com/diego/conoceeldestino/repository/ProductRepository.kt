@@ -12,6 +12,6 @@ interface ProductRepository : CrudRepository<Product, Int> {
     fun findByName(name: String): Optional<Product>
 
     @Query("select p from Product p where upper(p.category.name) = upper(?1)")
-    fun findByCategory(name: String): Optional<Product>
+    fun findByCategory(name: String): Optional<MutableIterable<Product>>
 
 }

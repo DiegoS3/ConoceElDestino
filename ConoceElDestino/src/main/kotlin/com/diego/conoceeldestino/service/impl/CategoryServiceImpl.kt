@@ -31,7 +31,7 @@ class CategoryServiceImpl : CategoryService {
                     it.image = category.image
                     it.longDescription = category.longDescription
                     it.shortDescription = category.shortDescription
-                    return@map categoryRepository.save(category)
+                    return@map categoryRepository.save(it)
                 }
                 .orElseGet {
                     return@orElseGet categoryRepository.save(category)

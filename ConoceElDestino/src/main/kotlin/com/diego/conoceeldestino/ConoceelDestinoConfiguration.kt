@@ -15,7 +15,7 @@ class ConoceelDestinoConfiguration {
     fun databaseInitializer(categoryRepository: CategoryRepository,
                             categoryService: CategoryServiceImpl,
                             productRepository: ProductRepository,
-                            serviceImpl: ProductServiceImpl
+                            productService: ProductServiceImpl
     ) = ApplicationRunner {
 
 

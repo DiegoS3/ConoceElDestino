@@ -5,22 +5,66 @@ import com.diego.conoceeldestino.error.ConoceElDestinoException
 import com.diego.conoceeldestino.service.impl.ProductServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.ResponseStatus
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/rest/api/service")
+@RequestMapping("/rest/api/product")
 class ProductController: BaseController {
 
     @Autowired
-    private lateinit var serviceService: ProductServiceImpl
+    private lateinit var productService: ProductServiceImpl
 
     @PostMapping("/search")
     @Throws(ConoceElDestinoException::class)
     @ResponseStatus(HttpStatus.CREATED)
-    fun getAllServices(): MutableIterable<Product> {
-        return serviceService.findAllServices()
+    fun getAllProducts(): MutableIterable<Product> {
+        return productService.findAllProduct()
+    }
+
+    @GetMapping
+    @Throws(ConoceElDestinoException::class)
+    private fun getProductByName(
+        @RequestParam(name = "name") name: String
+    ): ResponseEntity<Any> {
+        val product = productService.findByName(name)
+        return ResponseEntity.ok(product)
+    }
+
+    @PostMapping("category/search")
+    @Throws(ConoceElDestinoException::class)
+    private fun getProducstByCategory(
+        @RequestParam(name = "name") name: String
+    ): ResponseEntity<Any> {
+        val productList = productService.findByCategory(name)
+        return ResponseEntity.ok(productList)
+    }
+
+    @PutMapping
+    @Throws(ConoceElDestinoException::class)
+    private fun putProduct(
+        @RequestBody product: Product
+    ): ResponseEntity<Any> {
+        val updateProduct = productService.updateProduct(product)
+        return ResponseEntity.ok(updateProduct)
+    }
+
+    @PostMapping
+    @Throws(ConoceElDestinoException::class)
+    private fun postProduct(
+        @RequestBody product: Product
+    ): ResponseEntity<Any> {
+        val newProduct = productService.createProduct(product)
+        return ResponseEntity.ok(newProduct)
+    }
+
+    @DeleteMapping
+    @Throws(ConoceElDestinoException::class)
+    private fun deleteProduct(
+        @RequestParam(name = "name") name: String
+    ): ResponseEntity.BodyBuilder {
+        val isDeleted = productService.deleteProduct(name)
+        return if (isDeleted) ResponseEntity.ok()
+        else ResponseEntity.badRequest()
     }
 }

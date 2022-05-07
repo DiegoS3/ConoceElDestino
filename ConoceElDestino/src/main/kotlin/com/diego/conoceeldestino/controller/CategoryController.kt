@@ -53,9 +53,10 @@ class CategoryController : BaseController{
     @Throws(ConoceElDestinoException::class)
     private fun deleteCategory(
         @RequestParam(name = "name") name: String
-    ):  ResponseEntity<Any>  {
+    ): ResponseEntity.BodyBuilder {
         val isDeleted = categoryService.deleteCategory(name)
-        return ResponseEntity.ok(isDeleted)
+        return if (isDeleted) ResponseEntity.ok()
+        else ResponseEntity.badRequest()
     }
 
 }

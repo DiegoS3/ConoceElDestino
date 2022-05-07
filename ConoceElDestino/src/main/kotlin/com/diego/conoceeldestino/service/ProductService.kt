@@ -1,16 +1,16 @@
 package com.diego.conoceeldestino.service
 
-import com.diego.conoceeldestino.entity.Category
+import com.diego.conoceeldestino.dto.ProductDto
 import com.diego.conoceeldestino.entity.Product
 import java.util.*
 
 interface ProductService {
 
-    fun findAllServices(): MutableIterable<Product>
-    fun updateService(product: Product): Product?
-    fun createService(product: Product): Product?
+    fun findAllProduct(): MutableIterable<Product>
+    fun updateProduct(product: Product): Product?
+    fun createProduct(product: Product): Product?
     fun findByName(name: String): Optional<Product>
-    fun findByCategory(category: Category): MutableIterable<Product>
-    fun deleteService(name: String): Boolean
+    fun findByCategory(name: String): List<ProductDto>
+    fun deleteProduct(name: String): Boolean
 
 }
