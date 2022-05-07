@@ -5,7 +5,7 @@ import javax.persistence.*
 
 @Entity
 @Table(name = "service")
-open class Service {
+open class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idservice", nullable = false)
