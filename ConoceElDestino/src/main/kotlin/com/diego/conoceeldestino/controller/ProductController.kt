@@ -31,7 +31,7 @@ class ProductController: BaseController {
         return ResponseEntity.ok(product)
     }
 
-    @PostMapping("category/search")
+    @GetMapping("/category/search")
     @Throws(ConoceElDestinoException::class)
     private fun getProducstByCategory(
         @RequestParam(name = "name") name: String
