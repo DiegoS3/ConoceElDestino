@@ -1,0 +1,12 @@
+package com.diego.conoceeldestino.repository;
+import com.diego.conoceeldestino.entity.ProductImage
+import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.CrudRepository
+import java.util.*
+
+interface ProductImageRepository : CrudRepository<ProductImage, Int> {
+
+    @Query("select p from ProductImage p where p.service.id = ?1")
+    fun findByService_IdEquals(id: Int): Optional<MutableIterable<ProductImage>>
+
+}
