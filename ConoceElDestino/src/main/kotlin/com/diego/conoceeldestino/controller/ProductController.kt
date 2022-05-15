@@ -1,5 +1,7 @@
 package com.diego.conoceeldestino.controller
 
+import com.diego.conoceeldestino.dto.ProductDto
+import com.diego.conoceeldestino.dto.ProductRequestDTO
 import com.diego.conoceeldestino.entity.Product
 import com.diego.conoceeldestino.error.ConoceElDestinoException
 import com.diego.conoceeldestino.service.impl.ProductServiceImpl
@@ -18,7 +20,7 @@ class ProductController: BaseController {
     @PostMapping("/search")
     @Throws(ConoceElDestinoException::class)
     @ResponseStatus(HttpStatus.CREATED)
-    fun getAllProducts(): MutableIterable<Product> {
+    fun getAllProducts(): List<ProductDto> {
         return productService.findAllProduct()
     }
 
@@ -52,7 +54,7 @@ class ProductController: BaseController {
     @PostMapping
     @Throws(ConoceElDestinoException::class)
     private fun postProduct(
-        @RequestBody product: Product
+        @RequestBody product: ProductRequestDTO
     ): ResponseEntity<Any> {
         val newProduct = productService.createProduct(product)
         return ResponseEntity.ok(newProduct)
