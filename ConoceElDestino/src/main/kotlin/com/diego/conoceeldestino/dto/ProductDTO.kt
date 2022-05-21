@@ -17,7 +17,7 @@ data class ProductDto(
     val arrival: String? = null,
     val distance: Int? = null,
     val place: String? = null,
-    val horario: Int? = null,
+    val horario: HorarioResponseDTO? = null,
     val images: MutableList<ProductImageDTO>? = null
 ) : Serializable {
     override fun equals(other: Any?): Boolean {
