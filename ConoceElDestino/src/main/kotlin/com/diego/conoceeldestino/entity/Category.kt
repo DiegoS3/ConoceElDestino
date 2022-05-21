@@ -1,6 +1,7 @@
 package com.diego.conoceeldestino.entity
 
 import org.hibernate.Hibernate
+import java.util.*
 import javax.persistence.*
 
 @Entity
@@ -32,5 +33,7 @@ data class Category (
     }
 
     override fun hashCode(): Int = javaClass.hashCode()
+
+    fun <T> Optional<T>.unwrap(): T? = orElse(null)
 
 }
