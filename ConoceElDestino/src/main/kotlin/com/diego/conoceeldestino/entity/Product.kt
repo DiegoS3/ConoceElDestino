@@ -47,4 +47,7 @@ open class Product {
 
     @Column(name = "place", nullable = false)
     open var place: String? = null
+
+    @JoinColumn(name = "horario")
+    open var horario: Int? = null
 }

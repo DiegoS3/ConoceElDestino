@@ -43,6 +43,7 @@ class ProductServiceImpl : ProductService {
                     it.arrival,
                     it.distance,
                     it.place,
+                    it.horario,
                     getImages(it)
                 )
             }
@@ -101,6 +102,7 @@ class ProductServiceImpl : ProductService {
                         it.arrival,
                         it.distance,
                         it.place,
+                        it.horario,
                         getImages(it)
                     )
                 }
@@ -152,6 +154,7 @@ class ProductServiceImpl : ProductService {
                 productEntity.distance = product.distance
                 productEntity.place = product.place
                 productEntity.place = product.place
+                productEntity.horario = product.horario
 
                 return@map productRepository.save(productEntity)
             }.orElseGet{

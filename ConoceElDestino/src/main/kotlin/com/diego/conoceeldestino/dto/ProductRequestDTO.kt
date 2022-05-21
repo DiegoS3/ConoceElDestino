@@ -15,5 +15,6 @@ data class ProductRequestDTO(
     val arrival: String? = null,
     val distance: Int? = null,
     val place: String? = null,
-    val nameCategory: String? = null
+    val nameCategory: String? = null,
+    val horario: Int? = null
 ): Serializable
