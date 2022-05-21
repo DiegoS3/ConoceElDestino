@@ -1,11 +1,13 @@
 package com.diego.conoceeldestino.service.impl
 
 import com.diego.conoceeldestino.dto.ProductDto
+import com.diego.conoceeldestino.dto.ProductImageDTO
 import com.diego.conoceeldestino.dto.ProductRequestDTO
 import com.diego.conoceeldestino.entity.Category
 import com.diego.conoceeldestino.entity.Product
 import com.diego.conoceeldestino.error.ConoceElDestinoException
 import com.diego.conoceeldestino.repository.CategoryRepository
+import com.diego.conoceeldestino.repository.ProductImageRepository
 import com.diego.conoceeldestino.repository.ProductRepository
 import com.diego.conoceeldestino.service.ProductService
 import org.springframework.beans.factory.annotation.Autowired
@@ -21,6 +23,9 @@ class ProductServiceImpl : ProductService {
     @Autowired
     private lateinit var categoryRepository: CategoryRepository
 
+    @Autowired
+    private lateinit var productImageRepository: ProductImageRepository
+
     override fun findAllProduct(): List<ProductDto> {
         try {
             val productList = productRepository.findAll()
@@ -30,14 +35,15 @@ class ProductServiceImpl : ProductService {
                     it.name,
                     it.shortDescription,
                     it.longDescription,
-                    it.included,
-                    it.notIncluded,
+                    it.included?.split('.')?.toTypedArray(),
+                    it.notIncluded?.split('.')?.toTypedArray(),
                     it.price,
-                    it.duration?.div(60),
+                    it.duration,
                     it.departure,
                     it.arrival,
                     it.distance,
-                    it.place
+                    it.place,
+                    getImages(it)
                 )
             }
             return list
@@ -87,14 +93,15 @@ class ProductServiceImpl : ProductService {
                         it.name,
                         it.shortDescription,
                         it.longDescription,
-                        it.included,
-                        it.notIncluded,
+                        it.included?.split('.')?.toTypedArray(),
+                        it.notIncluded?.split('.')?.toTypedArray(),
                         it.price,
                         it.duration,
                         it.departure,
                         it.arrival,
                         it.distance,
-                        it.place
+                        it.place,
+                        getImages(it)
                     )
                 }
                 return@map list
@@ -144,6 +151,7 @@ class ProductServiceImpl : ProductService {
                 productEntity.arrival = product.arrival
                 productEntity.distance = product.distance
                 productEntity.place = product.place
+                productEntity.place = product.place
 
                 return@map productRepository.save(productEntity)
             }.orElseGet{
@@ -154,5 +162,15 @@ class ProductServiceImpl : ProductService {
             throw ConoceElDestinoException(e.message)
         }
         return null
+    }
+
+    private fun getImages(product: Product): MutableList<ProductImageDTO> {
+        val listImage: MutableList<ProductImageDTO> = mutableListOf()
+        productImageRepository.findByService_IdEquals(product.id!!).map { list ->
+            list.forEach {
+                listImage.add(ProductImageDTO(it.id, it.image))
+            }
+        }
+        return listImage
     }
 }

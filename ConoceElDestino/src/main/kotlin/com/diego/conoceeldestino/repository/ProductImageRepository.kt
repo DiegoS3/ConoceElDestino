@@ -8,7 +8,6 @@ import java.util.*
 @Repository
 interface ProductImageRepository : CrudRepository<ProductImage, Int> {
 
-    @Query("select p from ProductImage p where p.service.id = ?1")
     fun findByService_IdEquals(id: Int): Optional<MutableIterable<ProductImage>>
 
 }
