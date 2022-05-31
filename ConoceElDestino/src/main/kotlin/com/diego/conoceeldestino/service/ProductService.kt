@@ -10,7 +10,7 @@ interface ProductService {
     fun findAllProduct(): List<ProductDto>
     fun updateProduct(product: Product): Product?
     fun createProduct(product: ProductRequestDTO): Product?
-    fun findByName(name: String): Optional<Product>
+    fun findByName(name: String): Optional<ProductDto>
     fun findByCategory(name: String): List<ProductDto>
     fun deleteProduct(name: String): Boolean
 

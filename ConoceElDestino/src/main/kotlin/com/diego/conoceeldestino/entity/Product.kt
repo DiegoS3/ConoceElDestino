@@ -26,8 +26,11 @@ open class Product {
     @Column(name = "not_included", nullable = false, length = 2000)
     open var notIncluded: String? = null
 
-    @Column(name = "price", nullable = false, precision = 10, scale = 2)
-    open var price: BigDecimal? = null
+    @Column(name = "price_indi", nullable = false, precision = 10, scale = 2)
+    open var priceIndi: BigDecimal? = null
+
+    @Column(name = "price_group", nullable = false, precision = 10, scale = 2)
+    open var priceGroup: BigDecimal? = null
 
     @Column(name = "duration", nullable = false)
     open var duration: Double? = null
@@ -47,4 +50,7 @@ open class Product {
 
     @Column(name = "place", nullable = false)
     open var place: String? = null
+
+    @JoinColumn(name = "horario")
+    open var horario: Int? = null
 }

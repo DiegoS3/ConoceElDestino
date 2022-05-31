@@ -1,14 +1,14 @@
 package com.diego.conoceeldestino.service.impl
 
-import com.diego.conoceeldestino.dto.ProductDto
-import com.diego.conoceeldestino.dto.ProductImageDTO
-import com.diego.conoceeldestino.dto.ProductRequestDTO
+import com.diego.conoceeldestino.dto.*
 import com.diego.conoceeldestino.entity.Category
 import com.diego.conoceeldestino.entity.Product
 import com.diego.conoceeldestino.error.ConoceElDestinoException
 import com.diego.conoceeldestino.repository.CategoryRepository
+import com.diego.conoceeldestino.repository.HorarioRepository
 import com.diego.conoceeldestino.repository.ProductImageRepository
 import com.diego.conoceeldestino.repository.ProductRepository
+import com.diego.conoceeldestino.service.HorarioService
 import com.diego.conoceeldestino.service.ProductService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
@@ -26,6 +26,9 @@ class ProductServiceImpl : ProductService {
     @Autowired
     private lateinit var productImageRepository: ProductImageRepository
 
+    @Autowired
+    private lateinit var horarioService: HorarioService
+
     override fun findAllProduct(): List<ProductDto> {
         try {
             val productList = productRepository.findAll()
@@ -37,12 +40,14 @@ class ProductServiceImpl : ProductService {
                     it.longDescription,
                     it.included?.split('.')?.toTypedArray(),
                     it.notIncluded?.split('.')?.toTypedArray(),
-                    it.price,
+                    it.priceIndi,
+                    it.priceGroup,
                     it.duration,
                     it.departure,
                     it.arrival,
                     it.distance,
                     it.place,
+                    getHorario(it),
                     getImages(it)
                 )
             }
@@ -76,9 +81,27 @@ class ProductServiceImpl : ProductService {
         }
     }
 
-    override fun findByName(name: String): Optional<Product> {
+    override fun findByName(name: String): Optional<ProductDto> {
         try {
-            return productRepository.findByName(name)
+            return productRepository.findByName(name).map {
+                    ProductDto(
+                        it.id,
+                        it.name,
+                        it.shortDescription,
+                        it.longDescription,
+                        it.included?.split('.')?.toTypedArray(),
+                        it.notIncluded?.split('.')?.toTypedArray(),
+                        it.priceIndi,
+                        it.priceGroup,
+                        it.duration,
+                        it.departure,
+                        it.arrival,
+                        it.distance,
+                        it.place,
+                        getHorario(it),
+                        getImages(it)
+                    )
+                }
         } catch (e: Exception) {
             throw ConoceElDestinoException(e.message)
         }
@@ -95,12 +118,14 @@ class ProductServiceImpl : ProductService {
                         it.longDescription,
                         it.included?.split('.')?.toTypedArray(),
                         it.notIncluded?.split('.')?.toTypedArray(),
-                        it.price,
+                        it.priceIndi,
+                        it.priceGroup,
                         it.duration,
                         it.departure,
                         it.arrival,
                         it.distance,
                         it.place,
+                        getHorario(it),
                         getImages(it)
                     )
                 }
@@ -117,7 +142,7 @@ class ProductServiceImpl : ProductService {
         try {
             return findByName(name)
                 .map {
-                    productRepository.delete(it)
+                    productRepository.deleteById(it.id!!)
                     return@map true
                 }.orElseGet {
                     return@orElseGet false
@@ -145,13 +170,15 @@ class ProductServiceImpl : ProductService {
                 productEntity.longDescription = product.longDescription
                 productEntity.included = product.included
                 productEntity.notIncluded = product.notIncluded
-                productEntity.price = product.price
+                productEntity.priceIndi = product.priceIndi
+                productEntity.priceGroup = product.priceGroup
                 productEntity.duration = product.duration
                 productEntity.departure = product.departure
                 productEntity.arrival = product.arrival
                 productEntity.distance = product.distance
                 productEntity.place = product.place
                 productEntity.place = product.place
+                productEntity.horario = product.horario
 
                 return@map productRepository.save(productEntity)
             }.orElseGet{
@@ -172,5 +199,9 @@ class ProductServiceImpl : ProductService {
             }
         }
         return listImage
+    }
+
+    private fun getHorario(product: Product): HorarioResponseDTO? {
+        return horarioService.findHorarioById(product.id!!)
     }
 }
