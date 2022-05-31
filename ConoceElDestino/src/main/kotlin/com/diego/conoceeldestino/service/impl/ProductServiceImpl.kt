@@ -40,7 +40,8 @@ class ProductServiceImpl : ProductService {
                     it.longDescription,
                     it.included?.split('.')?.toTypedArray(),
                     it.notIncluded?.split('.')?.toTypedArray(),
-                    it.price,
+                    it.priceIndi,
+                    it.priceGroup,
                     it.duration,
                     it.departure,
                     it.arrival,
@@ -90,7 +91,8 @@ class ProductServiceImpl : ProductService {
                         it.longDescription,
                         it.included?.split('.')?.toTypedArray(),
                         it.notIncluded?.split('.')?.toTypedArray(),
-                        it.price,
+                        it.priceIndi,
+                        it.priceGroup,
                         it.duration,
                         it.departure,
                         it.arrival,
@@ -116,7 +118,8 @@ class ProductServiceImpl : ProductService {
                         it.longDescription,
                         it.included?.split('.')?.toTypedArray(),
                         it.notIncluded?.split('.')?.toTypedArray(),
-                        it.price,
+                        it.priceIndi,
+                        it.priceGroup,
                         it.duration,
                         it.departure,
                         it.arrival,
@@ -167,7 +170,8 @@ class ProductServiceImpl : ProductService {
                 productEntity.longDescription = product.longDescription
                 productEntity.included = product.included
                 productEntity.notIncluded = product.notIncluded
-                productEntity.price = product.price
+                productEntity.priceIndi = product.priceIndi
+                productEntity.priceGroup = product.priceGroup
                 productEntity.duration = product.duration
                 productEntity.departure = product.departure
                 productEntity.arrival = product.arrival

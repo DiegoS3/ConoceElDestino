@@ -11,7 +11,8 @@ data class ProductDto(
     val longDescription: String? = null,
     val included: Array<String>? = null,
     val notIncluded: Array<String>? = null,
-    val price: BigDecimal? = null,
+    val priceIndi: BigDecimal? = null,
+    val priceGroup: BigDecimal? = null,
     val duration: Double? = null,
     val departure: String? = null,
     val arrival: String? = null,
@@ -31,8 +32,9 @@ data class ProductDto(
         if (shortDescription != other.shortDescription) return false
         if (longDescription != other.longDescription) return false
         if (!included.contentEquals(other.included)) return false
-        if (notIncluded != other.notIncluded) return false
-        if (price != other.price) return false
+        if (!notIncluded.contentEquals(other.notIncluded)) return false
+        if (priceIndi != other.priceIndi) return false
+        if (priceGroup != other.priceGroup) return false
         if (duration != other.duration) return false
         if (departure != other.departure) return false
         if (arrival != other.arrival) return false
@@ -50,7 +52,8 @@ data class ProductDto(
         result = 31 * result + (longDescription?.hashCode() ?: 0)
         result = 31 * result + included.contentHashCode()
         result = 31 * result + (notIncluded?.hashCode() ?: 0)
-        result = 31 * result + (price?.hashCode() ?: 0)
+        result = 31 * result + (priceIndi?.hashCode() ?: 0)
+        result = 31 * result + (priceGroup?.hashCode() ?: 0)
         result = 31 * result + (duration?.hashCode() ?: 0)
         result = 31 * result + (departure?.hashCode() ?: 0)
         result = 31 * result + (arrival?.hashCode() ?: 0)
