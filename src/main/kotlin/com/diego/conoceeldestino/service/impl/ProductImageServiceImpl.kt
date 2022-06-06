@@ -22,7 +22,7 @@ class ProductImageServiceImpl: ProductImageService {
 
     override fun findByProduct(id: Int): List<ProductImageDTO> {
         return try {
-            productImageRepository.findByServiceIdEquals(id).map { images ->
+            productImageRepository.findByServiceId_IdEquals(id).map { images ->
                 val list = images.map {
                     ProductImageDTO(
                         it.idserviceImage,

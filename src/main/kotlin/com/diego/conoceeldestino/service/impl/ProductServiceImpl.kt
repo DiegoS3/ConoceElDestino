@@ -218,7 +218,7 @@ class ProductServiceImpl : ProductService {
 
     private fun getImages(product: Product): MutableList<ProductImageDTO> {
         val listImage: MutableList<ProductImageDTO> = mutableListOf()
-        productImageRepository.findByServiceIdEquals(product.id!!).map { list ->
+        productImageRepository.findByServiceId_IdEquals(product.id!!).map { list ->
             list.forEach {
                 listImage.add(ProductImageDTO(it.idserviceImage, it.image))
             }
