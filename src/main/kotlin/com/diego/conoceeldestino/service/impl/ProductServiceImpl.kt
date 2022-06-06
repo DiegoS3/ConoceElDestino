@@ -47,6 +47,7 @@ class ProductServiceImpl : ProductService {
                     it.arrival,
                     it.distance,
                     it.place,
+                    it.category?.name,
                     getHorario(it),
                     getImages(it)
                 )
@@ -57,15 +58,37 @@ class ProductServiceImpl : ProductService {
         }
     }
 
-    override fun updateProduct(product: Product): Product? {
+    override fun updateProduct(product: ProductRequestDTO): Product? {
         try {
             return productRepository.findByName(product.name!!)
-                .map {
-                    product.category = it.category
-                    return@map productRepository.save(product)
+                .map { productFounded ->
+                    categoryRepository.findByName(product.nameCategory!!).map {
+                        val category = Category(
+                            it.id,
+                            it.name,
+                            it.shortDescription,
+                            it.longDescription,
+                            it.image
+                        )
+                        productFounded.name = product.name
+                        productFounded.category = category
+                        productFounded.shortDescription = product.shortDescription
+                        productFounded.longDescription = product.longDescription
+                        productFounded.included = product.included
+                        productFounded.notIncluded = product.notIncluded
+                        productFounded.priceIndi = product.priceIndi
+                        productFounded.priceGroup = product.priceGroup
+                        productFounded.duration = product.duration
+                        productFounded.departure = product.departure
+                        productFounded.arrival = product.arrival
+                        productFounded.distance = product.distance
+                        productFounded.place = product.place
+                        productFounded.horario = product.horario
+                    }
+                    return@map productRepository.save(productFounded)
                 }
                 .orElseGet {
-                    return@orElseGet productRepository.save(product)
+                    return@orElseGet createProductWithCategory(product)!!
                 }
         } catch (e: Exception) {
             throw ConoceElDestinoException(e.message)
@@ -98,6 +121,7 @@ class ProductServiceImpl : ProductService {
                         it.arrival,
                         it.distance,
                         it.place,
+                        it.category?.name,
                         getHorario(it),
                         getImages(it)
                     )
@@ -125,6 +149,7 @@ class ProductServiceImpl : ProductService {
                         it.arrival,
                         it.distance,
                         it.place,
+                        it.category?.name,
                         getHorario(it),
                         getImages(it)
                     )
@@ -193,15 +218,15 @@ class ProductServiceImpl : ProductService {
 
     private fun getImages(product: Product): MutableList<ProductImageDTO> {
         val listImage: MutableList<ProductImageDTO> = mutableListOf()
-        productImageRepository.findByService_IdEquals(product.id!!).map { list ->
+        productImageRepository.findByServiceIdEquals(product.id!!).map { list ->
             list.forEach {
-                listImage.add(ProductImageDTO(it.id, it.image))
+                listImage.add(ProductImageDTO(it.idserviceImage, it.image))
             }
         }
         return listImage
     }
 
     private fun getHorario(product: Product): HorarioResponseDTO? {
-        return horarioService.findHorarioById(product.id!!)
+        return horarioService.findHorarioById(product.horario!!)
     }
 }

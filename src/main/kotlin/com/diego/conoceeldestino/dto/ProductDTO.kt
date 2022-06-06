@@ -1,5 +1,6 @@
 package com.diego.conoceeldestino.dto
 
+import com.diego.conoceeldestino.entity.Category
 import com.diego.conoceeldestino.entity.Horario
 import java.io.Serializable
 import java.math.BigDecimal
@@ -18,6 +19,7 @@ data class ProductDto(
     val arrival: String? = null,
     val distance: Int? = null,
     val place: String? = null,
+    val category: String? = null,
     val horario: HorarioResponseDTO? = null,
     val images: MutableList<ProductImageDTO>? = null
 ) : Serializable {

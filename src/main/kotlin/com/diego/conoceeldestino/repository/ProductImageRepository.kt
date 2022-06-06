@@ -8,6 +8,6 @@ import java.util.*
 @Repository
 interface ProductImageRepository : CrudRepository<ProductImage, Int> {
 
-    fun findByService_IdEquals(id: Int): Optional<MutableIterable<ProductImage>>
+    fun findByServiceIdEquals(id: Int): Optional<MutableIterable<ProductImage>>
 
 }

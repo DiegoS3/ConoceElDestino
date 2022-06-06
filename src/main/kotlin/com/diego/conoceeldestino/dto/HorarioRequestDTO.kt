@@ -1,6 +1,7 @@
 package com.diego.conoceeldestino.dto
 
 import com.fasterxml.jackson.annotation.JsonFormat
+import java.io.Serializable
 
 data class HorarioRequestDTO(
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
@@ -15,4 +16,4 @@ data class HorarioRequestDTO(
     val veranoFechaEnd: String? = null,
     val veranoHoraInit: String? = null,
     val veranoHoraEnd: String? = null
-)
+): Serializable

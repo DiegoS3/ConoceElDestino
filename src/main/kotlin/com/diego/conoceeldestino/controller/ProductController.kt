@@ -45,7 +45,7 @@ class ProductController: BaseController {
     @PutMapping
     @Throws(ConoceElDestinoException::class)
     private fun putProduct(
-        @RequestBody product: Product
+        @RequestBody product: ProductRequestDTO
     ): ResponseEntity<Any> {
         val updateProduct = productService.updateProduct(product)
         return ResponseEntity.ok(updateProduct)
